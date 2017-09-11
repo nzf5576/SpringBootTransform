@@ -59,6 +59,6 @@ public class MainController {
         @RequestMapping(value = "/hi", method= RequestMethod.GET)
 	public String hello(@RequestParam String name) {
 		// This returns a JSON or XML with the users
-		return "howdy "+name;
+		return "Hello there "+name;
 	}
 }
