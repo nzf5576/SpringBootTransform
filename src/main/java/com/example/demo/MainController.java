@@ -6,6 +6,8 @@
 package com.example.demo;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,13 +25,15 @@ public class MainController {
         
          @Autowired
         private PersonService personService;
+         
+        private static final Logger logger = LoggerFactory.getLogger(MainController.class);	 
 
 	//@GetMapping(path="/add") // Map ONLY GET Requests
         @RequestMapping(value = "/add", method= RequestMethod.POST)  //Thsi shoudl be POST, not GET
 	public String addNewPerson (@RequestParam String name, @RequestParam String email) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
-
+                logger.debug("--Adding person--");
 		Person n = new Person();
 		n.setFirstName(name);
 		n.setEmail(email);
@@ -43,7 +47,7 @@ public class MainController {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
 
-                System.out.println("Inside getting on person with token: "+token);
+                logger.debug("Inside getting on person with token: "+token);
                
 		return personRepository.findByPersonIndex(token);
                 
@@ -53,6 +57,7 @@ public class MainController {
         @RequestMapping(value = "/all", method= RequestMethod.GET)
 	public Iterable<Person> getAllUsers() {
 		// This returns a JSON or XML with the users
+                logger.error("Not really an error just testing");
 		return personRepository.findAll();
 	}
         
