@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.business.PersonService;
+import com.app.entity.Person;
+
 
 
 @RestController    // using @RestController and not @Controller so we don't have to use @responsebody in our methods 
