@@ -32,7 +32,7 @@ public class MainController {
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);	 
 
 
-    @RequestMapping(value = "/add", method= RequestMethod.POST)  //Thsi shoudl be POST, not GET
+    @RequestMapping(value = "/add", method= RequestMethod.POST)  
 	public String addNewPerson (@RequestParam String name, @RequestParam String email) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
@@ -42,7 +42,7 @@ public class MainController {
 	}
         
 
-    @RequestMapping(value = "/all/{token}", method= RequestMethod.GET)
+    @RequestMapping(value = "/getOne/{token}", method= RequestMethod.GET)
 	public Person getThisUser(@PathVariable Integer token) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
@@ -52,8 +52,7 @@ public class MainController {
                 
 	}
 
-
-    @RequestMapping(value = "/all", method= RequestMethod.GET)
+    @RequestMapping(value = "/getAll", method= RequestMethod.GET)
 	public Iterable<Person> getAllUsers() {
 		// This returns a JSON or XML with the users
         logger.error("Not really an error just testing");
@@ -63,6 +62,6 @@ public class MainController {
     @RequestMapping(value = "/hi", method= RequestMethod.GET)
 	public String hello(@RequestParam String name) {
 		// This returns a JSON or XML with the users
-		return "Yo Priviet "+name;
+		return "Hi "+name;
 	}
 }
