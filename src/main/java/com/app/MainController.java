@@ -33,6 +33,22 @@ public class MainController {
     private PersonService personService;
      
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);	 
+    
+    @ApiOperation(value = "Get a token", response = String.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully got token"),
+            @ApiResponse(code = 401, message = "You are not authorized to add the resource"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+    })  
+    @RequestMapping(value = "/getToken", method= RequestMethod.POST)  
+	public String getToken (@RequestParam String uid, @RequestParam String passwd) {
+		// @ResponseBody means the returned String is the response, not a view name
+		// @RequestParam means it is a parameter from the GET or POST request
+         logger.debug("--getting token--");
+            
+		return personService.getToken(uid, passwd);
+	}
 
     @ApiOperation(value = "Add a customer", response = String.class)
     @ApiResponses(value = {
