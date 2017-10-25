@@ -10,23 +10,22 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class hazelcast {
-    Config config;
+
     HazelcastInstance h;
     ConcurrentMap<String, String> map;
 	
 	public hazelcast() {
-        config = new Config();
-        h = Hazelcast.newHazelcastInstance(config);
-        map = h.getMap("my-distributed-map");
         System.out.println("-------------------> Initializing Cache");
 	}
 	
 	
     public void put(String key, String value) {
+        map = h.getMap("servicecache");
         map.put("key", "value");
     }
 
     public String get(String key) {
+        map = h.getMap("servicecache");
     return  map.get("key");
     }
 } 
