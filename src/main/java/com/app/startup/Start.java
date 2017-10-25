@@ -10,6 +10,7 @@ public class Start {
 
     @PostConstruct
     public void init(){
-        System.out.println("-------------------> ooooooooooooooooo");
+        System.out.println("-------------------> Initializing Services");
+        
     }
 }
