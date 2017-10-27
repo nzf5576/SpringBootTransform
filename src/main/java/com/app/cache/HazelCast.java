@@ -1,20 +1,21 @@
 package com.app.cache;
 
-import com.hazelcast.config.Config;
-import com.hazelcast.core.Hazelcast;
+
 import com.hazelcast.core.HazelcastInstance;
  
 import java.util.concurrent.ConcurrentMap;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class hazelcast {
+public class HazelCast {
 
-    HazelcastInstance h;
+	@Autowired
+	private HazelcastInstance h;
     ConcurrentMap<String, String> map;
 	
-	public hazelcast() {
+	public HazelCast() {
         System.out.println("-------------------> Initializing Cache");
 	}
 	
