@@ -8,6 +8,7 @@ import java.util.concurrent.ConcurrentMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+
 @Component
 public class HazelCast {
 
@@ -22,11 +23,13 @@ public class HazelCast {
 	
     public void put(String key, String value) {
         map = h.getMap("servicecache");
-        map.put("key", "value");
+        map.put(key, value);
+
     }
 
     public String get(String key) {
         map = h.getMap("servicecache");
-    return  map.get("key");
+    return  map.get(key);
     }
+    
 } 
