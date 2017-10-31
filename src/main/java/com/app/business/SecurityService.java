@@ -41,12 +41,11 @@ public class SecurityService {
 			messageDigest = MessageDigest.getInstance("MD5");
 			messageDigest.update(temp.getBytes());
 			byte[] messageDigestMD5 = messageDigest.digest();
-			StringBuffer stringBuffer = new StringBuffer();
+			StringBuilder stringBuffer = new StringBuilder();
 			for (byte bytes : messageDigestMD5) {
 				stringBuffer.append(String.format("%02x", bytes & 0xff));
 			}
 
-			logger.info("--token set----------------------------------------------->>>>>>>>>>>>>>>.");
 			logger.debug("key:" + this.getUid());
 			logger.debug("token:" + stringBuffer.toString());
 			hazelCast.put(this.getUid(), stringBuffer.toString());
