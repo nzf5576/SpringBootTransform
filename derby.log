@@ -1,8 +1,8 @@
 ----------------------------------------------------------------
-Sun Oct 29 09:47:44 CDT 2017:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.13.1.1 - (1765088): instance a816c00e-015f-689a-4f04-00000fbaa480 
-on database directory memory:/root/SpringBootPeP/testdb with class loader sun.misc.Launcher$AppClassLoader@4aa298b7 
-Loaded from file:/root/.m2/repository/org/apache/derby/derby/10.13.1.1/derby-10.13.1.1.jar
+Sun Oct 29 09:56:21 CDT 2017:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.13.1.1 - (1765088): instance a816c00e-015f-68a2-34a7-000004b5a0b0 
+on database directory memory:/root/SpringBootPeP/testdb with class loader org.springframework.boot.loader.LaunchedURLClassLoader@38af3868 
+Loaded from jar:file:/root/SpringBootPeP/target/SpringBootMySQL-0.1.0.jar!/BOOT-INF/lib/derby-10.13.1.1.jar!/
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_121-b13
 user.dir=/root/SpringBootPeP

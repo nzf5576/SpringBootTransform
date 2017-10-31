@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.business.PersonService;
+import com.app.business.SecurityService;
 import com.app.entity.Person;
 
 import io.swagger.annotations.Api;
@@ -31,6 +32,9 @@ public class MainController {
     
 	@Autowired
     private PersonService personService;
+	
+	@Autowired
+    private SecurityService securityService;
      
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);	 
     
@@ -42,12 +46,12 @@ public class MainController {
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })  
     @RequestMapping(value = "/getToken", method= RequestMethod.POST)  
-	public String getToken (@RequestParam String uid, @RequestParam String passwd) {
+	public String getToken (@RequestParam String acct, @RequestParam String routingno) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
          logger.debug("--getting token--");
             
-		return personService.getToken(uid, passwd);
+		return securityService.getToken(acct, routingno);
 	}
 
     @ApiOperation(value = "Add a customer", response = String.class)
