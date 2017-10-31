@@ -48,11 +48,11 @@ public class SecurityService {
 
 			logger.debug("key:" + this.getUid());
 			logger.debug("token:" + stringBuffer.toString());
+			this.setSectoken(stringBuffer.toString());
 			hazelCast.put(this.getUid(), stringBuffer.toString());
 			return stringBuffer.toString();
 		} catch (NoSuchAlgorithmException exception) {
-			// TODO Auto-generated catch block
-			exception.printStackTrace();
+			logger.debug(exception.toString());
 		}
 		return null;
 
