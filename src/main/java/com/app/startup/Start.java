@@ -17,6 +17,6 @@ public class Start {
     public void init(){
         System.out.println("-------------------> Initializing Services");
         System.out.println(Start.class.getClassLoader().getResource("logging.properties"));
-        logger.info("--PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP-");
+        logger.info("--PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP-");
     }
 }
