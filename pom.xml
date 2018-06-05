@@ -7,8 +7,6 @@
     <artifactId>SpringBootMySQL</artifactId>
     <version>0.1.1</version>
     
-
-
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -104,13 +102,50 @@
     <properties>
         <java.version>1.8</java.version>
     </properties>
-
+    <distributionManagement>
+        <repository>
+            <id>nexus2</id>
+            <url>http://192.168.0.8:8081/nexus/content/repositories/releases</url>
+        </repository>
+      <!--   <snapshotRepository>
+            <id>snapshots</id>
+            <url>http://192.168.0.8:8081/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository> -->
+    </distributionManagement>
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <plugin>
+               <groupId>org.apache.maven.plugins</groupId>
+               <artifactId>maven-deploy-plugin</artifactId>
+               <version>${maven-deploy-plugin.version}</version>
+               <configuration>
+                  <skip>true</skip>
+               </configuration>
+            </plugin>
+            <plugin>
+               <groupId>org.sonatype.plugins</groupId>
+               <artifactId>nexus-staging-maven-plugin</artifactId>
+               <version>1.5.1</version>
+               <executions>
+                  <execution>
+                     <id>default-deploy</id>
+                     <phase>deploy</phase>
+                     <goals>
+                        <goal>deploy</goal>
+                     </goals>
+                  </execution>
+               </executions>
+               <configuration>
+                  <serverId>nexus2</serverId>
+                  <nexusUrl>http://192.168.0.8:8081/nexus/content/repositories/releases/</nexusUrl>
+                  <skipStaging>true</skipStaging>
+               </configuration>
+            </plugin>
+
         </plugins>
     </build>
 
