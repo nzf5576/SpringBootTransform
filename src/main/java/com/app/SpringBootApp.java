@@ -19,10 +19,10 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 @EnableScheduling
 @EnableCaching
-public class Test1Application {
+public class SpringBootApp {
 
     public static void main(String[] args) {
-            SpringApplication.run(Test1Application.class, args);
+            SpringApplication.run(SpringBootApplication.class, args);
     }
         
     @Bean

@@ -23,6 +23,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController    // using @RestController and not @Controller so we don't have to use @responsebody in our methods 
@@ -37,6 +39,14 @@ public class MainController {
     private SecurityService securityService;
      
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);	 
+    
+    
+    @RequestMapping(value = "/ping", method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE ,produces = MediaType.APPLICATION_JSON_VALUE)  
+    public OutboundResponse ping(@RequestBody InboundRequest pinger) {
+     logger.info("--ping--");
+    return new OutboundResponse("Springboot is up "+pinger.getInbound());
+    }
+    
     
     @ApiOperation(value = "Get a token", response = String.class)
     @ApiResponses(value = {
@@ -102,10 +112,5 @@ public class MainController {
 		return personService.getAllUsers();
 	}
         
-    
-    @RequestMapping(value = "/hi", method= RequestMethod.GET)
-	public String hello(@RequestParam String name) {
-		// This returns a JSON or XML with the users
-		return "Hi "+name;
-	}
+
 }
