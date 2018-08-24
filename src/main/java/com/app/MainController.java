@@ -32,29 +32,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Api(value="Customer Master", description="Operations pertaining to Customer Master Data")
 public class MainController {
     
-	@Autowired
+    @Autowired
     private PersonService personService;
 	
-	@Autowired
+    @Autowired
     private SecurityService securityService;
      
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);	 
     
     
-    @RequestMapping(value = "/ping", method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE ,produces = MediaType.APPLICATION_JSON_VALUE)  
+    @RequestMapping(value = "/ping", method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE ,produces = MediaType.APPLICATION_JSON_VALUE)  
     public OutboundResponse ping(@RequestBody InboundRequest pinger) {
      logger.info("--ping--");
     return new OutboundResponse("Springboot is up "+pinger.getInbound());
     }
     
     
-    @ApiOperation(value = "Get a token", response = String.class)
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully got token"),
-            @ApiResponse(code = 401, message = "You are not authorized to add the resource"),
-            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
-            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
-    })  
     @RequestMapping(value = "/getToken", method= RequestMethod.POST)  
 	public String getToken (@RequestParam String acct, @RequestParam String routingno) {
 		// @ResponseBody means the returned String is the response, not a view name
@@ -64,13 +57,7 @@ public class MainController {
 		return securityService.getToken(acct, routingno);
 	}
 
-    @ApiOperation(value = "Add a customer", response = String.class)
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully added customer"),
-            @ApiResponse(code = 401, message = "You are not authorized to add the resource"),
-            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
-            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
-    })  
+
     @RequestMapping(value = "/add", method= RequestMethod.POST)  
 	public String addNewPerson (@RequestParam String name, @RequestParam String email) {
 		// @ResponseBody means the returned String is the response, not a view name
@@ -80,14 +67,7 @@ public class MainController {
 		return personService.OnboardPerson(name, email);
 	}
         
-
-    @ApiOperation(value = "View a customer", response = Person.class)
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully retrieved customer"),
-            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
-            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
-            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
-    })    
+  
     @RequestMapping(value = "/getOne/{token}", method= RequestMethod.GET)
 	public Person getThisUser(@PathVariable Integer token) {
 		// @ResponseBody means the returned String is the response, not a view name
@@ -98,13 +78,6 @@ public class MainController {
                 
 	}
 
-    @ApiOperation(value = "View a list of customers", response = Iterable.class)
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully retrieved list"),
-            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
-            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
-            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
-    })
     @RequestMapping(value = "/getAll", method= RequestMethod.GET)
 	public Iterable<Person> getAllUsers() {
 		// This returns a JSON or XML with the users

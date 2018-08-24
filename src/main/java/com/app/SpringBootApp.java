@@ -22,7 +22,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SpringBootApp {
 
     public static void main(String[] args) {
-            SpringApplication.run(SpringBootApplication.class, args);
+            SpringApplication.run(SpringBootApp.class, args);
     }
         
     @Bean
