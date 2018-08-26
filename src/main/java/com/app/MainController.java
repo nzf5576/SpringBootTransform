@@ -22,10 +22,10 @@ import com.app.entity.Person;
 
 import io.swagger.annotations.Api;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.CrossOrigin;
+//import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@CrossOrigin(origins = "*", maxAge = 3600)  // must have thsi to avoid cros scripting erros if accessing directly.
+//@CrossOrigin(origins = "*", maxAge = 3600)  // must have thsi to avoid cros scripting erros if accessing directly.
 @RestController    // using @RestController and not @Controller so we don't have to use @responsebody in our methods 
 @RequestMapping(path="/customer/v1") // This means URL's start with /demo (after Application path)
 @Api(value="Customer Master", description="Operations pertaining to Customer Master Data")
