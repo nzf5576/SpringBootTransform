@@ -10,12 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.app.MainController;
-import com.app.cache.HazelCast;
 import com.app.entity.Person;
 import com.app.entity.PersonRepository;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 /**
  *
  * @author root
