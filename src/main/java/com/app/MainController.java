@@ -20,6 +20,7 @@ import com.app.business.PersonService;
 import com.app.business.SecurityService;
 import com.app.entity.Person;
 import io.swagger.annotations.Api;
+import java.util.Random;
 
 
 import org.springframework.http.MediaType;
@@ -29,7 +30,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 
 @CrossOrigin(origins = "*", maxAge = 36000)  // must have thsi to avoid cros scripting erros if accessing directly.
 @RestController    // using @RestController and not @Controller so we don't have to use @responsebody in our methods 
-@RequestMapping(path="/customer/v1") // This means URL's start with /demo (after Application path)
+@RequestMapping(path="/customer") // This means URL's start with /demo (after Application path)
 @Api(value="Customer Master", description="Operations pertaining to Customer Master Data")
 public class MainController {
     
@@ -42,12 +43,20 @@ public class MainController {
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);	 
     
     //public OutboundResponse ping(@RequestHeader(value="User-Agent") String userAgent, @RequestParam(value = "ID", defaultValue = "") String id, @RequestBody InboundRequest pinger)
-    @RequestMapping(value = "/ping", method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE ,produces = MediaType.APPLICATION_JSON_VALUE)  
-    public OutboundResponse ping(@RequestParam String token, @RequestHeader(value="Origin") String origin, @RequestBody InboundRequest pinger) {
+    @RequestMapping(value = "/zing", method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE ,produces = MediaType.APPLICATION_JSON_VALUE)  
+    public OutboundResponse zing(@RequestParam String token, @RequestHeader(value="Origin") String origin, @RequestBody InboundRequest pinger) {
      logger.info("--ping--");
     return new OutboundResponse(token+": Springboot is up "+pinger.getInbound()+" from "+origin);
     }
     
+    @RequestMapping(value = "/ping", method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE ,produces = MediaType.APPLICATION_JSON_VALUE)  
+    public OutboundResponse ping() {
+     logger.info("--ping--");
+    Random random = new Random();
+
+    
+    return new OutboundResponse(String.valueOf(random.nextInt(1000)));
+    }   
     
     @RequestMapping(value = "/getToken", method= RequestMethod.POST)  
 	public String getToken (@RequestParam String acct, @RequestParam String routingno) {
