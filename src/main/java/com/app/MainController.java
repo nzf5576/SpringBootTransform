@@ -8,17 +8,15 @@ package com.app;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
-import com.app.business.PersonService;
-import com.app.business.SecurityService;
+
 import com.app.entity.Person;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.Api;
 import java.util.Random;
 
@@ -26,7 +24,6 @@ import java.util.Random;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 
 @CrossOrigin(origins = "*", maxAge = 36000)  // must have thsi to avoid cros scripting erros if accessing directly.
 @RestController    // using @RestController and not @Controller so we don't have to use @responsebody in our methods 
@@ -34,66 +31,42 @@ import org.springframework.web.bind.annotation.RequestHeader;
 @Api(value="Customer Master", description="Operations pertaining to Customer Master Data")
 public class MainController {
     
-    @Autowired
-    private PersonService personService;
-	
-    @Autowired
-    private SecurityService securityService;
+
      
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);	 
     
     //public OutboundResponse ping(@RequestHeader(value="User-Agent") String userAgent, @RequestParam(value = "ID", defaultValue = "") String id, @RequestBody InboundRequest pinger)
-    @RequestMapping(value = "/zing", method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE ,produces = MediaType.APPLICATION_JSON_VALUE)  
+    /*@RequestMapping(value = "/zing", method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE ,produces = MediaType.APPLICATION_JSON_VALUE)  
     public OutboundResponse zing(@RequestParam String token, @RequestHeader(value="Origin") String origin, @RequestBody InboundRequest pinger) {
      logger.info("--zing--");
     return new OutboundResponse(token+": Springboot is up "+pinger.getInbound()+" from "+origin);
     }
+    */
     
     @RequestMapping(value = "/ping", method= RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)  
     public OutboundResponse ping() {
-     logger.info("--ping--");
     Random random = new Random();
-
-    
-    return new OutboundResponse(String.valueOf(random.nextInt(100)));
+    return new OutboundResponse(String.valueOf(random.nextInt(1000)));
     }   
     
-    @RequestMapping(value = "/getToken", method= RequestMethod.POST)  
-	public String getToken (@RequestParam String acct, @RequestParam String routingno) {
-		// @ResponseBody means the returned String is the response, not a view name
-		// @RequestParam means it is a parameter from the GET or POST request
-         logger.debug("--getting token--");
-            
-		return securityService.getToken(acct, routingno);
-	}
+    
+    @RequestMapping(value = "/transformCustomer", method= RequestMethod.POST)  
+    public String transformCustomer (@RequestBody Person person) throws JsonProcessingException {
+            // @ResponseBody means the returned String is the response, not a view name
+            // @RequestParam means it is a parameter from the GET or POST request
+        logger.debug("--transforming--");
 
+        MappingConsole mapper = new MappingConsole();
+        ObjectMapper json = new ObjectMapper();
 
-    @RequestMapping(value = "/add", method= RequestMethod.POST)  
-	public String addNewPerson (@RequestParam String name, @RequestParam String email) {
-		// @ResponseBody means the returned String is the response, not a view name
-		// @RequestParam means it is a parameter from the GET or POST request
-         logger.debug("--Adding person--");
-            
-		return personService.OnboardPerson(name, email);
-	}
-        
+        String jsonInString = json.writeValueAsString(person);
+
+    return mapper.xForm(jsonInString);
+    }
   
-    @RequestMapping(value = "/getOne/{token}", method= RequestMethod.GET)
-	public Person getThisUser(@PathVariable Integer token) {
-		// @ResponseBody means the returned String is the response, not a view name
-		// @RequestParam means it is a parameter from the GET or POST request
 
-        logger.debug("Inside getting on person with token: "+token);              
-		return personService.getThisUser(token);
-                
-	}
 
-    @RequestMapping(value = "/getAll", method= RequestMethod.GET)
-	public Iterable<Person> getAllUsers() {
-		// This returns a JSON or XML with the users
-        logger.error("Not really an error just testing");
-		return personService.getAllUsers();
-	}
+
         
 
 }
