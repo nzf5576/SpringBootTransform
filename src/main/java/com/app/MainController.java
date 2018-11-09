@@ -27,21 +27,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @CrossOrigin(origins = "*", maxAge = 36000)  // must have thsi to avoid cros scripting erros if accessing directly.
 @RestController    // using @RestController and not @Controller so we don't have to use @responsebody in our methods 
-@RequestMapping(path="/customer") // This means URL's start with /demo (after Application path)
-@Api(value="Customer Master", description="Operations pertaining to Customer Master Data")
+@RequestMapping(path="/transfrom") // This means URL's start with /demo (after Application path)
 public class MainController {
     
 
      
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);	 
     
-    //public OutboundResponse ping(@RequestHeader(value="User-Agent") String userAgent, @RequestParam(value = "ID", defaultValue = "") String id, @RequestBody InboundRequest pinger)
-    /*@RequestMapping(value = "/zing", method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE ,produces = MediaType.APPLICATION_JSON_VALUE)  
-    public OutboundResponse zing(@RequestParam String token, @RequestHeader(value="Origin") String origin, @RequestBody InboundRequest pinger) {
-     logger.info("--zing--");
-    return new OutboundResponse(token+": Springboot is up "+pinger.getInbound()+" from "+origin);
-    }
-    */
     
     @RequestMapping(value = "/ping", method= RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)  
     public OutboundResponse ping() {
